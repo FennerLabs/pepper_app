@@ -6,11 +6,9 @@ import numpy as np
 
 # from descriptors import get_maccs_fingerprints
 
-
-
 def main():
     # Load the entire pipeline
-    model_pipeline = joblib.load('pepper_pipeline_model.pkl')
+    # model_pipeline = joblib.load('pepper_pipeline_model.pkl')
 
     # Streamlit app title
     st.title("PEPPER: an App to Predict Environmental Persistence ")
