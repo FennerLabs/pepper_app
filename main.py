@@ -36,4 +36,3 @@ if uploaded_file is not None:
 
     # Show the predictions
     st.write("Predictions:", predictions_df)
-
