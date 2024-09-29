@@ -6,8 +6,9 @@ import numpy as np
 
 from descriptors import get_maccs_fingerprints
 
-if __name__ == '__main__':
 
+
+def main():
     # Load the entire pipeline
     model_pipeline = joblib.load('pepper_pipeline_model.pkl')
 
@@ -39,3 +40,8 @@ if __name__ == '__main__':
         #
         # # Show the predictions
         # st.write("Predictions:", predictions_df)
+
+
+if __name__ == '__main__':
+    main()
+    print('app is running')
