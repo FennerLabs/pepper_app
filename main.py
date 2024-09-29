@@ -2,7 +2,6 @@ import streamlit as st
 import joblib
 import pandas as pd
 import numpy as np
-# from rdkit.Chem import PandasTools
 
 from descriptors import get_maccs_fingerprints
 
@@ -34,9 +33,6 @@ if uploaded_file is not None:
     # Show it as a dataframe
     predictions_df = pd.DataFrame(input_data)
     predictions_df['Breakthrough (%)'] = predictions
-
-    # Add chemical structures
-    # PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
 
     # Show the predictions
     st.write("Predictions:", predictions_df)
