@@ -4,7 +4,7 @@ import joblib
 import pandas as pd
 import numpy as np
 
-from descriptors import get_maccs_fingerprints
+# from descriptors import get_maccs_fingerprints
 
 
 
