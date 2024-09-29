@@ -1,0 +1,5 @@
+numpy
+joblib
+pandas
+numpy
+molfeat
