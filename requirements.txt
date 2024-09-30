@@ -5,3 +5,4 @@ pandas==2.2.3
 rdkit==2024.3.2
 streamlit==1.38.0
 opencv-python-headless
+scikit-learn==1.2.2
