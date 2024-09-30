@@ -3,5 +3,4 @@ molfeat==0.10.1
 numpy==2.1.1
 pandas==2.2.3
 rdkit==2024.3.2
-rdkit_pypi==2022.9.5
 streamlit==1.38.0
