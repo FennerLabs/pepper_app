@@ -14,7 +14,7 @@ def main():
     model_pipeline = joblib.load('pepper_pipeline_model.pkl')
 
     # Streamlit app title
-    st.title("PEPPER: an App to Predict Environmental Persistence ")
+    st.title("PEPPER: an app to Predict Environmental Pollutant PERsistence ")
 
     # Upload CSV file
     uploaded_file = st.file_uploader("Upload a CSV file with chemical substance data", type="csv")
