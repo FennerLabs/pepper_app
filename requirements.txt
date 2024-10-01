@@ -1,7 +1,9 @@
-numpy
-joblib
-pandas
-numpy
-molfeat
-rdkit
-streamlit
+joblib==1.4.2
+molfeat==0.10.0
+pandas==2.2.3
+streamlit==1.38.0
+scipy==1.12.0
+matplotlib==3.6.2
+numpy==1.26.0
+scikit-learn==1.3.0
+rdkit==2024.03.5
