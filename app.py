@@ -39,7 +39,7 @@ def main():
         predictions_df['Breakthrough (%)'] = predictions
 
         # Show the predictions
-        # st.write("Predictions:", predictions_df)
+        st.write("Predictions:", predictions_df)
 
         PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
         predictions_df.rename(columns={'ROMol': 'Structure'})
