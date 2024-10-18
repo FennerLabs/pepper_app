@@ -1,7 +1,5 @@
 import pandas as pd
 import streamlit as st
-
-#
 from rdkit.Chem import PandasTools
 
 from utils import perform_predictions_for_smiles
