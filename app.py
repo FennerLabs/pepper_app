@@ -1,16 +1,34 @@
-import joblib
 import pandas as pd
 import streamlit as st
-import numpy as np
 
-from descriptors import get_maccs_fingerprints
 #
 from rdkit.Chem import PandasTools
 
+from utils import perform_predictions_for_smiles
+
+def stuff():
+    if not hasattr(st, 'already_started_server'):
+        st.already_started_server = True
+
+        st.write('''
+            The first time this script executes it will run forever because it's
+            running a Flask server.
+    
+            Just close this browser tab and open a new one to see your Streamlit
+            app.
+        ''')
+
+        from flask import Flask
+
+        app = Flask(__name__)
+
+        @app.route('/foo')
+        def serve_foo():
+            return 'This page is served via Flask!'
+
+        app.run(port=8128)
 
 def main():
-    # Load the entire pipeline
-    model_pipeline = joblib.load('pepper_pipeline_model.pkl')
 
     # Streamlit app title
     st.title("PEPPER: an app to Predict Environmental Pollutant PERsistence ")
@@ -25,14 +43,7 @@ def main():
         # Show the input data
         st.write("Uploaded data:", input_data)
 
-        # Calculate the MACCS fingerprints for the input data
-        X = get_maccs_fingerprints(input_data.SMILES)
-
-        # Use the pipeline to make predictions
-        predicted_logB = model_pipeline.predict(X)
-
-        # Convert to percentages
-        predictions = np.round((10**predicted_logB)*100)
+        predictions = perform_predictions_for_smiles(input_data.SMILES)
 
         # Show it as a dataframe
         predictions_df = pd.DataFrame(input_data)
@@ -49,5 +60,6 @@ def main():
 
 
 if __name__ == '__main__':
+    stuff()
     main()
     print('app is running')
