@@ -23,8 +23,6 @@ def main():
         # Show it as a dataframe
         predictions_df = pd.DataFrame(input_data)
         predictions_df['Breakthrough (%)'] = response.json()
-        print(response.json())
-        print(predictions_df)
 
         # Show the predictions
         st.write("Predictions:", predictions_df)
@@ -38,4 +36,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print('app is running')
