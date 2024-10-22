@@ -1,7 +1,0 @@
-joblib==1.4.2
-flask
-molfeat==0.10.0
-pandas==2.2.3
-streamlit==1.38.0
-numpy==1.26.0
-rdkit==2024.03.5
