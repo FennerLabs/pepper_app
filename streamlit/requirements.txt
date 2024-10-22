@@ -1,0 +1,3 @@
+pandas==2.2.3
+rdkit==2024.03.5
+streamlit==1.38.0
