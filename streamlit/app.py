@@ -1,30 +1,7 @@
 import pandas as pd
 import streamlit as st
+import requests
 from rdkit.Chem import PandasTools
-
-from utils import perform_predictions_for_smiles
-
-def stuff():
-    if not hasattr(st, 'already_started_server'):
-        st.already_started_server = True
-
-        st.write('''
-            The first time this script executes it will run forever because it's
-            running a Flask server.
-    
-            Just close this browser tab and open a new one to see your Streamlit
-            app.
-        ''')
-
-        from flask import Flask
-
-        app = Flask(__name__)
-
-        @app.route('/foo')
-        def serve_foo():
-            return 'This page is served via Flask!'
-
-        app.run(port=8128)
 
 def main():
 
@@ -41,11 +18,13 @@ def main():
         # Show the input data
         st.write("Uploaded data:", input_data)
 
-        predictions = perform_predictions_for_smiles(input_data.SMILES)
+        response = requests.request("get", "http://backend:8000/predict/", params={"smiles": ",".join(input_data.SMILES)})
 
         # Show it as a dataframe
         predictions_df = pd.DataFrame(input_data)
-        predictions_df['Breakthrough (%)'] = predictions
+        predictions_df['Breakthrough (%)'] = response.json()
+        print(response.json())
+        print(predictions_df)
 
         # Show the predictions
         st.write("Predictions:", predictions_df)
@@ -58,6 +37,5 @@ def main():
 
 
 if __name__ == '__main__':
-    stuff()
     main()
     print('app is running')
