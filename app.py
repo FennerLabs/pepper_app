@@ -5,7 +5,7 @@ import numpy as np
 
 # from descriptors import get_maccs_fingerprints
 #
-from rdkit.Chem import PandasTools
+# from rdkit.Chem import PandasTools
 
 
 def main():
