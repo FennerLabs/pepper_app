@@ -36,5 +36,5 @@ def main():
 #         st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
 #
 #
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
