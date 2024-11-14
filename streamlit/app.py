@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-# import requests
+import requests
 # from rdkit.Chem import PandasTools
 
 
