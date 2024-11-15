@@ -14,9 +14,12 @@ st.markdown(
     Pepper-app is the web app version of a system developed by FennerLabs
     (https://github.com/FennerLabs) to Predict Predict Environmental Pollutant PERsistence.
     The main contributors of the PEPPER package  are:
-    Jose Cordero (Swiss Federal Institute of Aquatic Science & Technology) 
-    Jasmin Hafner (Swiss Federal Institute of Aquatic Science & Technology &  University of Zurich)
-    Albert Anguera (Swiss Federal Institute of Aquatic Science & Technology)
+    - [Jose Cordero ] (https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jose-cordero/show/)
+    (Swiss Federal Institute of Aquatic Science & Technology) 
+    - [Jasmin Hafner ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jasmin-hafner/show/) 
+    (Swiss Federal Institute of Aquatic Science & Technology &  University of Zurich)
+    - [Albert Anguera](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/albert-anguera-sempere/show/) 
+    (Swiss Federal Institute of Aquatic Science & Technology)
     
     **👈 Select a demo from the sidebar** to some of the services available 
     
