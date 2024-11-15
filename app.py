@@ -26,7 +26,7 @@ def main():
         st.write("Uploaded data:", input_data)
 
         # Calculate the MACCS fingerprints for the input data
-        X = get_maccs_fingerprints(input_data.SMILES)
+        # X = get_maccs_fingerprints(input_data.SMILES)
 
         # Use the pipeline to make predictions
         predicted_logB = model_pipeline.predict(X)
@@ -41,7 +41,7 @@ def main():
         # Show the predictions
         st.write("Predictions:", predictions_df)
 
-        PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
+        # PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
         predictions_df.rename(columns={'ROMol': 'Structure'})
         predictions_df.drop(columns='SMILES', inplace=True)
 
