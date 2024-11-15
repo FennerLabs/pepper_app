@@ -27,4 +27,3 @@ st.markdown(
     - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
 """
 )
-
