@@ -7,9 +7,6 @@ from descriptors import get_maccs_fingerprints
 from rdkit.Chem import PandasTools
 
 
-st.set_page_config(page_title="Batch Demo", page_icon="📈")
-
-
 def main():
     # Load the entire pipeline
     model_pipeline = joblib.load('pepper_pipeline_model.pkl')
