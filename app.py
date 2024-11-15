@@ -20,9 +20,9 @@ csv = convert_df(example_csv)
 
 st.sidebar.success(" 📄 Download example file")
 st.sidebar.download_button(
-    label="Download data as CSV",
+    label="Download example file",
     data=csv,
-    file_name="large_df.csv",
+    file_name="pepper_example.csv",
     mime="text/csv",
 )
 
