@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 
-# from descriptors import get_maccs_fingerprints
+from descriptors import get_maccs_fingerprints
 #
 # from rdkit.Chem import PandasTools
 
@@ -29,14 +29,14 @@ def main():
         # X = get_maccs_fingerprints(input_data.SMILES)
 
         # Use the pipeline to make predictions
-        predicted_logB = model_pipeline.predict(X)
+       # predicted_logB = model_pipeline.predict(X)
 
         # Convert to percentages
-        predictions = np.round((10**predicted_logB)*100)
+        # predictions = np.round((10**predicted_logB)*100)
 
         # Show it as a dataframe
         predictions_df = pd.DataFrame(input_data)
-        predictions_df['Breakthrough (%)'] = predictions
+        #predictions_df['Breakthrough (%)'] = predictions
 
         # Show the predictions
         st.write("Predictions:", predictions_df)
