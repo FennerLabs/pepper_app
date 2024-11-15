@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 
 st.set_page_config(
@@ -7,7 +8,24 @@ st.set_page_config(
 
 st.write("# Welcome to Pepper web app! 👋")
 
+
+@st.cache_data
+example_csv = pd.read_csv('test_pepper_app.csv')
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode("utf-8")
+
+csv = convert_df(example_csv)
+
 st.sidebar.success(" 📄 Download example file")
+st.sidebar.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name="large_df.csv",
+    mime="text/csv",
+)
+
+
 
 st.markdown(
     """
@@ -34,9 +52,8 @@ st.markdown(
     - Check out our Data page 👈 to learn more about how were our models trained  
     
      ### Want to beyond the web app?
-    - Check out [My own Pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
-      This is possible thanks to [Albert Anguera](https://github.com/anguera5)
-    - Ask a question in our [community
-        forums](https://discuss.streamlit.io)
+    - Check out [My own pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
 """
 )
+
+
