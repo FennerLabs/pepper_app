@@ -10,13 +10,14 @@ molecule = ''
 
 # Define figure names
 figure_names = {
-    "None": 'cc',
-    "Figure 1": 'cccc',
-    "Figure 2": 'cccccc',
-    "Figure 3": 'ccccccc',
-    "Figure 4": 'cccccccc',
-    "Figure 5": 'cccccccccccc',
-    "Figure 6": 'cccccccccccccccc',
+    "None": '',
+    "Paracetamol": 'O=C(C)NC1=CC=C(O)C=C1',
+    "Ibuprofen": 'CC(C)CC1=CC=C(C=C1)C(C)C(=O)O',
+    "Sulfamethoxazole": 'CC1=CC(=NO1)NS(=O)(=O)C2=CC=C(C=C2)N',
+    "Fluoexetine": 'CNCCC(C1=CC=CC=C1)OC2=CC=C(C=C2)C(F)(F)F',
+    "Heptachlor": 'C1=CC(C2C1C3(C(=C(C2(C3(Cl)Cl)Cl)Cl)Cl)Cl)Cl',
+    "Diazinon": 'CCOP(=S)(OCC)OC1=NC(=NC(=C1)C)C(C)C',
+    "4-nonylphenol": 'CCCCCCCCCC1=CC=C(C=C1)O',
     "Figure 7": 'cccccccccccccccccc',
     "Figure 8": 'ccccccccccccccccccccccccc',
     "Figure 9": 'ccccccccccccccccccccccccccccc'}
