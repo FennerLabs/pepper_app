@@ -24,6 +24,7 @@ figure_names = {
     "Sulfamethoxazole": 'CC1=CC(=NO1)NS(=O)(=O)C2=CC=C(C=C2)N',
     "Fluoexetine": 'CNCCC(C1=CC=CC=C1)OC2=CC=C(C=C2)C(F)(F)F',
     "Heptachlor": 'C1=CC(C2C1C3(C(=C(C2(C3(Cl)Cl)Cl)Cl)Cl)Cl)Cl',
+    "Bromoxynil": 'C1=C(C=C(C(=C1Br)O)Br)C#N',
     "Diazinon": 'CCOP(=S)(OCC)OC1=NC(=NC(=C1)C)C(C)C',
     "4-nonylphenol": 'CCCCCCCCCC1=CC=C(C=C1)O'
 }
