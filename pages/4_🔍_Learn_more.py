@@ -26,7 +26,8 @@ st.markdown(
 
 
     ### May I apply these models to any molecule? 
-    - 
+    - Instead of a in- or out-of-domain classification we provide a metric of confidence.
+    - Avoid using predictions with confindence 0
 
 """
 )

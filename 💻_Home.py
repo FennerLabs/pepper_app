@@ -6,6 +6,9 @@ st.set_page_config(
     page_icon="👋",
 )
 
+# Streamlit app title
+st.title("PEPPER: an app to Predict Environmental Pollutant PERsistence ")
+
 st.write("# Welcome to Pepper web app! 👋")
 
 
@@ -30,9 +33,13 @@ st.sidebar.download_button(
 
 st.markdown(
     """
-    Pepper-app is the web app version of a system developed by FennerLabs
-    (https://github.com/FennerLabs) to Predict Predict Environmental Pollutant PERsistence.
-    The main contributors of the PEPPER package  are:
+    Pepper-app is the web app version of ([PEPPER](https://github.com/FennerLabs/pepper)) a collection of models and methods 
+    developed by [FennerLabs](https://github.com/FennerLabs) to Predict Predict Environmental Pollutant PERsistence.
+    If you want to learn more about Prof. Kathrin Fenner and her group
+    follow this [link](https://www.eawag.ch/en/department/uchem/organisation/gruppenseite-fenner).
+    
+    
+    The main developers of the PEPPER package and the Pepper-app are:
     - [Jose Cordero ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jose-cordero/show/)
     (Swiss Federal Institute of Aquatic Science & Technology) 
     - [Jasmin Hafner ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jasmin-hafner/show/) 
@@ -41,16 +48,32 @@ st.markdown(
     (Swiss Federal Institute of Aquatic Science & Technology)
     
     
+    
     ### How to use the app? 
-    - First, select which property are you most interest in. 
-    - Then, you have two options Batch mode or Single Molecule mode.
-    - When using the Batch mode please upload a csv file with a list of molecules for which you want to predict.
-    - Ideally provide a csv file with at least one column of SMILES strings. (Please see the example file 📄)
-    - You can provide any additional information in the csv file (e.g. your own ID for each molecule). 
+    - First, choose if you want to make queries for a few molecules one by one 
+    ([single molecule](https://pepper-app.streamlit.app/Single_Molecule)) or for several 
+    molecules at once ([batch query](https://pepper-app.streamlit.app/Batch_Query)). 
+    
+    ##### Single molecule
+    
+    - If you want to make queries one by one please enter a valid SMILES string on the search bar. 
+    You can get valid SMILES using ChemDraw or from databases like PubChem.
+    - If you just want to check out the app, you can simply select a molecule from the droplist.
+    
+    ##### Batch Query
+    
+    - For many molecules use the batch mode by uploading a csv file with a list of molecules for which you want to predict.
+    - The csv file must have a column of SMILES strings.
+    We provide an example file 📄 available for download on the left panel 👈
+    - You can then download the results as a csv file by clicking on the download button on 
+    the upper right corner of the predictions dataframe.
+    - We recommend including in the input file a column with additional information (e.g. your own ID for each molecule)
+    to keep track of your predictions.
+    That information will also appear in the predictions file.   
     
     
     ### Want to learn more about our predictions? 
-    - Check out our Data page 👈 to learn more about how were our models trained  
+    - Check out our [Learn more](https://pepper-app.streamlit.app/Learn_more) section for details about the models and the training data.  
     
      ### Want to beyond the web app?
     - Check out [My own pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
