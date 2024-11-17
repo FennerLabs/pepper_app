@@ -34,7 +34,7 @@ st.sidebar.download_button(
 st.markdown(
     """
     Pepper-app is the web app version of ([PEPPER](https://github.com/FennerLabs/pepper)) a collection of models and methods 
-    developed by [FennerLabs](https://github.com/FennerLabs) to Predict Predict Environmental Pollutant PERsistence.
+    developed by [FennerLabs](https://github.com/FennerLabs) to Predict Environmental Pollutant PERsistence.
     If you want to learn more about Prof. Kathrin Fenner and her group
     follow this [link](https://www.eawag.ch/en/department/uchem/organisation/gruppenseite-fenner).
     
