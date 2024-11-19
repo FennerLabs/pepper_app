@@ -75,7 +75,7 @@ st.markdown(
     ### Want to learn more about our predictions? 
     - Check out our [Learn more](https://pepper-app.streamlit.app/Learn_more) section for details about the models and the training data.  
     
-     ### Want to beyond the web app?
+     ### Want to go beyond the web app?
     - Check out [My own pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
 """
 )
