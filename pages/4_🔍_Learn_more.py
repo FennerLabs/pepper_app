@@ -37,8 +37,8 @@ st.markdown(
     - Avoid using predictions with confidence 0.
     
     
-    ##### 📢⚠️ This page is under construction: We will have a major deployment with more detailed 
-    documentation once our work is published.  
+    ##### 📢⚠️ This page is under construction:
+    ###### We will have a major deployment with more detailed documentation once our work is published.  
 
 """
 )
