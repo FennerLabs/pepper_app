@@ -10,8 +10,17 @@ st.write(" # Thank you for wanting to know more about our models 👩🏽‍💻
 
 st.markdown(
     """
+    ### What can I predict with these models? 
+    - Our vision is to provide models for many diverse endpoints related to persistence of
+    micropollutants in the environment.
+    - Currently we support breakthrough from conventional wastewater treatment plants, which is defined as follows:
     
-    ### How does the model works?
+    
+    > $$Breakthrough (\%) = \\frac{Cn_{effluent}}{Cn_{influent}}  \\times 100 $$
+    
+    Which represents the percentage of substance that potentially escapes the plant untreated. 
+    
+    ### How does the model work?
     
     - These are data driven models which predict your property of interest based on chemical structure.
     - The SMILES strings provided are used to calculate the molecular descriptors best suited for that property. 

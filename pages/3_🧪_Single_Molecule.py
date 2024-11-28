@@ -9,6 +9,19 @@ import numpy as np
 from rdkit.Chem import PandasTools
 
 
+def tree_std_to_confidence(tree_std_dev):
+    min_tree_std = 0.29
+    max_tree_std = 0.91
+    if tree_std_dev < min_tree_std:
+        confidence = 1
+    elif tree_std_dev > max_tree_std:
+        confidence = 0
+    else:
+        confidence = (-1/(max_tree_std-min_tree_std))*tree_std_dev + 1.468
+
+    return confidence
+
+
 st.set_page_config(
     page_title="👋 Single Molecule Predictions",
     page_icon="👋",
@@ -31,6 +44,12 @@ figure_names = {
 
 # Title and instructions
 st.write("# Enter the SMILES string for your molecule of interest")
+st.markdown("""
+Currently we support the prediction of the expected percentage breakthrough of micropollutants from
+conventional wastewater treatment, that is, the percentage that potentially escapes the plant 
+without being successfully removed. Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
+for further details.  
+""")
 st.write("#### If you just want to check the app you may select example smiles from the box below")
 
 # Dropdown menu for selecting a molecule
@@ -73,35 +92,46 @@ if search_molecule or selected_from_box:
             import joblib
             model_pipeline = joblib.load('pepper_pipeline_model.pkl')
 
+            print('Preprocess data for predicting')
+            # Manually apply the transformations in the pipeline to X_test, except the last estimator
+            # X_test_transformed = model_pipeline.named_steps['scaler'].transform(X)
+            X_test_transformed = model_pipeline.named_steps['variance_selector'].transform(X)
+
+            print('Start predictions')
+            # Get individual tree predictions for each instance in the test set
+            individual_tree_predictions = np.array([
+                [tree.predict(X_test_transformed) for tree in model_pipeline.named_steps['regressor'].estimators_]
+            ]).squeeze()  # Shape: (n_estimators, n_test_samples)
+
+            # Calculate mean prediction and standard deviation across tree predictions for each test sample
+            y_pred_means = individual_tree_predictions.mean(axis=0)
+
+            print('Get AD metrics')
+            prediction_std_dev = individual_tree_predictions.std(axis=0)
+            confidence_std_dev = tree_std_to_confidence(prediction_std_dev)
+
             # Use the pipeline to make predictions
             predicted_logB = model_pipeline.predict(X)
 
             # Convert to percentages
-
             predictions = np.round((10 ** predicted_logB) * 100)
 
             # Show it as a dataframe
             predictions_df = pd.DataFrame()
             predictions_df['SMILES'] = molecule
-            predictions_df['Breakthrough (%)'] = predictions
+
 
             # Show the predictions
-            st.write("Predictions:", predictions_df)
+            # st.write('Predictions:')
+            # st.dataframe(predictions_df)
 
             PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
-            predictions_df.rename(columns={'ROMol': 'Structure'})
+            predictions_df.rename(columns={'ROMol': 'Structure'}, inplace=True)
             predictions_df.drop(columns='SMILES', inplace=True)
+            predictions_df['Breakthrough (%)'] = predictions
+            predictions_df['Confidence (0-1)'] = np.round(confidence_std_dev, decimals=1)
 
-            st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
-
-            # # Create a DataFrame to display predictions (placeholder for real logic)
-            # predictions_df = pd.DataFrame()
-            # predictions_df['SMILES'] = [molecule]  # Wrap in a list to avoid issues
-            # predictions_df['Breakthrough'] = ['In construction']
-            #
-            # # Display the DataFrame
-            # st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
-
+            st.markdown(predictions_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
 else:

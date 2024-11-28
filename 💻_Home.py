@@ -47,12 +47,15 @@ st.markdown(
     - [Albert Anguera](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/albert-anguera-sempere/show/) 
     (Swiss Federal Institute of Aquatic Science & Technology)
     
-    
+    ### What is this app for?
+    This allows you to predict different endpoints related to persistence of pollutants in the environment.
+    You can find the definitions of currently supported endpoints in [Learn more](https://pepper-app.streamlit.app/Learn_more). 
+     
     
     ### How to use the app? 
     - First, choose if you want to make queries for a few molecules one by one 
-    ([single molecule](https://pepper-app.streamlit.app/Single_Molecule)) or for several 
-    molecules at once ([batch query](https://pepper-app.streamlit.app/Batch_Query)). 
+    ([Single molecule](https://pepper-app.streamlit.app/Single_Molecule)) or for several 
+    molecules at once ([Batch query](https://pepper-app.streamlit.app/Batch_Query)). 
     
     ##### Single molecule
     
@@ -77,7 +80,16 @@ st.markdown(
     
      ### Want to go beyond the web app?
     - Check out [My own pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
+    
+    
+    ## Acknowledgments 
+    - Data to train our models was collected by members of Stockholm University including 
+    [Zhe Li](https://www.su.se/english/profiles/zhli2569-1.189472), 
+    [Yijing Li](https://www.su.se/english/profiles/yili6654-1.663685) 
+    and [Malte Posselt](https://www.su.se/english/profiles/mapo9821-1.260962)
+    - PEPPER & pepper-app were developed under a project funded by the Swiss Federal Office for the Environment (FOEN).
+
 """
 )
 
-
+# st.image('my_figure.png', use_column_width=False)
