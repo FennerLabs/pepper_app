@@ -75,10 +75,10 @@ reset = st.button("Reset", key='reset')
 
 if search_molecule or selected_from_box:
     if molecule != '':
-        # Check wether the SMILES stirng is valid
-        m = Chem.MolFromSmiles(molecule, sanitize=False)
+        # Check whether the SMILES string is valid
+        m = Chem.MolFromSmiles(molecule, sanitize=True)
         if m is None:
-            st.warning('Invalid SMILES',icon='⛔')
+            st.warning('Invalid SMILES', icon='⛔')
         else:
             st.write(f"Your input: {molecule}")
             st.warning('SMILES string accepted: Breakthrough will be calculated', icon='✅')
