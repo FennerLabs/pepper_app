@@ -5,3 +5,7 @@ __pycache__/
 
 *.png
 *.pdf
+
+config/
+notebooks/
+

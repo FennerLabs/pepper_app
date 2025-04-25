@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from rdkit import Chem
 
-from descriptors_legacy import get_maccs_fingerprints
+from prepare_input import get_maccs_fingerprints
 
 import numpy as np
 
