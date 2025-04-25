@@ -1,5 +1,4 @@
-
-from molfeat.trans.fp import FPVecTransformer
+# from molfeat.trans.fp import FPVecTransformer
 # store a get_maccs_fingerprints function
 
 
