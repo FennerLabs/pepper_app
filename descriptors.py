@@ -6,11 +6,11 @@ from rdkit import Chem
 from rdkit.Chem import MACCSkeys
 # from rdkit.Chem import PandasTools
 
-from padelpy import padeldescriptor
-padeldescriptor(d_3d=False)
-
-from padelpy import from_smiles
-from mordred import Calculator, descriptors
+# from padelpy import padeldescriptor
+# padeldescriptor(d_3d=False)
+#
+# from padelpy import from_smiles
+# from mordred import Calculator, descriptors
 
 from rdkit.Chem import AllChem as ac
 from rdkit.Chem import rdFingerprintGenerator
