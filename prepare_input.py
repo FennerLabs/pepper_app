@@ -20,8 +20,8 @@ reduced_features_names = ['struct-19', 'struct-37', 'struct-38', 'struct-49', 's
        'struct-165']
 
 def get_maccs_fingerprints(input_smiles):
-    from pepper_lab.pepper import Pepper
-    from pepper_lab.descriptors import Descriptors
+    from pepper import Pepper
+    from descriptors import Descriptors
 
     # calculate descriptors
     pep = Pepper(renku=True)
