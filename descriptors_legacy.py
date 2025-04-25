@@ -4,6 +4,6 @@ from molfeat.trans.fp import FPVecTransformer
 
 
 def get_maccs_fingerprints(smiles):
-    transformer = FPVecTransformer(kind='maccs', dtype=float)
-    maccs = transformer(smiles)
-    return maccs
+    # transformer = FPVecTransformer(kind='maccs', dtype=float)
+    # maccs = transformer(smiles)
+    print('Deprecated use calculate_MACCS_fingerprints() from pepper-lab.descriptors instead')
