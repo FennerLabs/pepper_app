@@ -4,7 +4,7 @@ import streamlit as st
 import numpy as np
 
 from descriptors_legacy import get_maccs_fingerprints
-from rdkit.Chem import PandasTools
+# from rdkit.Chem import PandasTools
 
 
 def tree_std_to_confidence(tree_std_array):
@@ -98,14 +98,14 @@ def main():
         st.markdown(""" ### Predictions: """)
         st.dataframe(predictions_df)
 
-        st.write("""
-        📢⚠️ The frame below shows the chemical structures. We are working to give you the chemical structures as part of the file to be downloaded.  """)
-
-        PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
-        predictions_df.rename(columns={'ROMol': 'Structure'})
-        predictions_df.drop(columns='SMILES', inplace=True)
-
-        st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
+        # st.write("""
+        # 📢⚠️ The frame below shows the chemical structures. We are working to give you the chemical structures as part of the file to be downloaded.  """)
+        #
+        # PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
+        # predictions_df.rename(columns={'ROMol': 'Structure'})
+        # predictions_df.drop(columns='SMILES', inplace=True)
+        #
+        # st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
 
 
 if __name__ == '__main__':
