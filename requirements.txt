@@ -4,7 +4,7 @@ pandas
 streamlit
 scipy
 matplotlib
-numpy==1.26.0
+numpy==2.2.5
 scikit-learn==1.6.1
 rdkit
 pepper-lab
