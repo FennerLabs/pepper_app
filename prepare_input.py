@@ -34,3 +34,20 @@ def get_maccs_fingerprints(input_smiles):
     # processed_X = descriptors.maccs[[descriptors.maccs.columns.intersection.isin(reduced_features_names)]]
     # processed_X = descriptors.maccs[descriptors.maccs.columns.intersection.isin(reduced_features_names)]
     return reduced_matrix
+
+
+def tree_std_to_confidence(tree_std_array):
+    confidence_list = []
+    for tree_std in tree_std_array:
+        # min_tree_std = 0.268560/2  # This values are based on observed deviations during training
+        # min_tree_std = 0.0
+        max_tree_std = 0.594320  # 90% threshold during training
+        min_tree_std = max_tree_std/10
+        if tree_std < min_tree_std:
+            confidence = 1
+        elif tree_std > max_tree_std:
+            confidence = 0
+        else:
+            confidence = (-1 / (max_tree_std - min_tree_std)) * tree_std + (max_tree_std/(max_tree_std-min_tree_std))
+        confidence_list.append(confidence)
+    return confidence_list

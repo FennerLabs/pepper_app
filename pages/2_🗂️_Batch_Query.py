@@ -21,23 +21,6 @@ from prepare_input import get_maccs_fingerprints
 #     return confidence_list
 
 
-def tree_std_to_confidence(tree_std_array):
-    confidence_list = []
-    for tree_std in tree_std_array:
-        # min_tree_std = 0.268560/2  # This values are based on observed deviations during training
-        # min_tree_std = 0.0
-        max_tree_std = 0.594320  # 90% threshold during training
-        min_tree_std = max_tree_std/10
-        if tree_std < min_tree_std:
-            confidence = 1
-        elif tree_std > max_tree_std:
-            confidence = 0
-        else:
-            confidence = (-1 / (max_tree_std - min_tree_std)) * tree_std + (max_tree_std/(max_tree_std-min_tree_std))
-        confidence_list.append(confidence)
-    return confidence_list
-
-
 def main():
     # Load the entire pipeline
     # model_pipeline = joblib.load('pepper_pipeline_model.pkl')
@@ -95,6 +78,8 @@ def main():
 
         # Calculate mean prediction and standard deviation across tree predictions for each test sample
         y_pred_means = individual_tree_predictions.mean(axis=0)
+
+        from prepare_input import tree_std_to_confidence
 
         print('Get AD metrics')
         prediction_std_dev = individual_tree_predictions.std(axis=0)
