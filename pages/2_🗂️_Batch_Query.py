@@ -1,30 +1,12 @@
-import joblib
-import pandas as pd
 import streamlit as st
-import numpy as np
-
-from prepare_input import get_maccs_fingerprints
-# from rdkit.Chem import PandasTools
-
-# def tree_std_to_confidence(tree_std_array):
-#     confidence_list = []
-#     for tree_std in tree_std_array:
-#         min_tree_std = 0.29
-#         max_tree_std = 0.91
-#         if tree_std < min_tree_std:
-#             confidence = 1
-#         elif tree_std > max_tree_std:
-#             confidence = 0
-#         else:
-#             confidence = (-1/(max_tree_std-min_tree_std))*tree_std + 1.468
-#         confidence_list.append(confidence)
-#     return confidence_list
+import pandas as pd
+from rdkit.Chem import PandasTools
 
 
 def main():
     # Load the entire pipeline
     # model_pipeline = joblib.load('pepper_pipeline_model.pkl')
-    model_regressor = joblib.load('pepper_wwtp_optimized_trained_regressor.pkl')
+    # model_regressor = joblib.load('pepper_wwtp_optimized_trained_regressor.pkl')
 
     # Streamlit app title
     st.title("PEPPER: an app to Predict Environmental Pollutant PERsistence ")
@@ -54,62 +36,38 @@ def main():
         file_name="pepper_example.csv",
         mime="text/csv",
     )
-
+    #todo: take out
+    uploaded_file = example_csv
     if uploaded_file is not None:
         # Load the uploaded data
-        input_data = pd.read_csv(uploaded_file)
+        # input_data = pd.read_csv(uploaded_file)
+
+        # todo: take out
+        input_data = uploaded_file
 
         # Show the input data
         st.write("Uploaded data:", input_data)
 
-        # Calculate the MACCS fingerprints for the input data
-        X = get_maccs_fingerprints(input_data)
-        st.write("Fingerprints_sheet:", X)
-
-        print('Preprocess data for predicting')
-        # Manually apply the transformations in the pipeline to X_test, except the last estimator
-
-
         print('Start predictions')
-        # Get individual tree predictions for each instance in the test set
-        individual_tree_predictions = np.array([
-            [tree.predict(X) for tree in model_regressor.estimators_]
-        ]).squeeze()  # Shape: (n_estimators, n_test_samples)
 
-        # Calculate mean prediction and standard deviation across tree predictions for each test sample
-        y_pred_means = individual_tree_predictions.mean(axis=0)
-
-        from prepare_input import tree_std_to_confidence
-
-        print('Get AD metrics')
-        prediction_std_dev = individual_tree_predictions.std(axis=0)
-        confidence_std_dev = tree_std_to_confidence(prediction_std_dev)
-
-        # Use the pipeline to make predictions
-        # predicted_logB = model_pipeline.predict(X)
-        raw_predictions = y_pred_means
-        predicted_logB = 1.48222333 * raw_predictions + 0.42978124623300695  # (adjustment with training data)
-
-        # Convert to percentages
-        predictions = np.round((10**predicted_logB)*100)
-
-        # Show it as a dataframe
-        predictions_df = pd.DataFrame(input_data)
-        predictions_df['Breakthrough (%)'] = predictions
-        predictions_df['Confidence (0-1)'] = np.round(confidence_std_dev, decimals=1)
+        # Calculate the MACCS fingerprints for the input data
+        from predict_target_endpoint import predict
+        predictions_df = predict(input_data)
 
         # Show the predictions
+        print(predictions_df)
         st.markdown(""" ### Predictions: """)
         st.dataframe(predictions_df)
 
-        # st.write("""
-        # 📢⚠️ The frame below shows the chemical structures. We are working to give you the chemical structures as part of the file to be downloaded.  """)
-        #
-        # PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
-        # predictions_df.rename(columns={'ROMol': 'Structure'})
-        # predictions_df.drop(columns='SMILES', inplace=True)
-        #
-        # st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
+        st.write("""
+        📢⚠️ The frame below shows the chemical structures. We are working to give
+        you the chemical structures as part of the file to be downloaded.  """)
+
+        PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
+        predictions_df.rename(columns={'ROMol': 'Structure'})
+        predictions_df.drop(columns='SMILES', inplace=True)
+
+        st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
 
 
 if __name__ == '__main__':

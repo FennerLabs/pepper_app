@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 from rdkit import Chem
 
-from prepare_input import get_maccs_fingerprints
+from predict_target_endpoint import get_maccs_fingerprints
 
 import numpy as np
 
 # from rdkit.Chem import PandasTools
 
-from prepare_input import tree_std_to_confidence
+from predict_target_endpoint import tree_std_to_confidence
 
 st.set_page_config(
     page_title="👋 Single Molecule Predictions",
