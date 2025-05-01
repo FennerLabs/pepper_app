@@ -1,11 +1,16 @@
-def predict(input_data):
+from rdkit.Chem import PandasTools
+
+
+def predict(input_data, input_smiles_type: str = 'dataframe'):
     from pepper_lab.predict import Predict
 
     input_smiles = input_data
     pepper_predict = Predict(renku=True)
     predictions_df = pepper_predict.predict_endpoint('pepper_object_wwtp_optimized_trained_model.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
-                                    input_smiles_type='dataframe')
+                                    input_smiles_type=input_smiles_type)
+
+    print(predictions_df.columns)
 
     # Select what to show in the app
     logb = predictions_df['logB_predicted']
@@ -21,5 +26,9 @@ def predict(input_data):
                                      pepper_predict.model.smiles_name,
                                      'Breakthrough (%)',
                                      'Confidence 0-1']]
+
+    PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
+    predictions_df.rename(columns={'ROMol': 'Structure'})
+    predictions_df.drop(columns='SMILES', inplace=True)
 
     return predictions_df
