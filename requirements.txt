@@ -1,4 +1,4 @@
-pandas>=2.2.0,<3.0.0
+pandas==2.2.3
 streamlit
 rdkit>=2024.9.5,<2025.0.0
 # pepper-lab to test current pepper-lab version before deployment
