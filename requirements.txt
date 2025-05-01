@@ -1,5 +1,5 @@
-pandas
+pandas>=2.2.0,<3.0.0
 streamlit
-rdkit
+rdkit>=2024.9.5,<2025.0.0
 # pepper-lab to test current pepper-lab version before deployment
 git+https://github.com/FennerLabs/pepper.git@main
