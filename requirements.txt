@@ -7,4 +7,5 @@ matplotlib
 numpy==2.2.5
 scikit-learn==1.6.1
 rdkit
-pepper-lab
+# pepper-lab to test current pepper-lab version before deployment
+git+https://github.com/FennerLabs/pepper.git@main

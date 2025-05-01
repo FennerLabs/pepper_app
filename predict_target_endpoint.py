@@ -3,7 +3,7 @@ def predict(input_data):
 
     input_smiles = input_data
     pepper_predict = Predict(renku=True)
-    predictions_df = pepper_predict.predict_endpoint('../pepper_object_wwtp_optimized_trained_model.pkl',
+    predictions_df = pepper_predict.predict_endpoint('pepper_object_wwtp_optimized_trained_model.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
                                     input_smiles_type='dataframe')
 
