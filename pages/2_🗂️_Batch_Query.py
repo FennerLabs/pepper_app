@@ -24,7 +24,6 @@ def main():
     example_csv = pd.read_csv('test_pepper_app.csv')
     csv = convert_df(example_csv)
 
-    st.sidebar.success(" 📄 Download example file")
     st.sidebar.download_button(
         label="Download example file",
         data=csv,
