@@ -10,8 +10,6 @@ def predict(input_data, input_smiles_type: str = 'dataframe'):
                                     input_model_format='pickle', input_smiles=input_smiles,
                                     input_smiles_type=input_smiles_type)
 
-    print(predictions_df.columns)
-
     # Select what to show in the app
     logb = predictions_df['logB_predicted']
     breakthrough_perc = (10**logb)*100
