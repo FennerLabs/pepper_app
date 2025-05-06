@@ -7,7 +7,7 @@ def predict(input_data, input_smiles_type: str = 'dataframe'):
     pepper_predict = Predict(renku=True)
     predictions_df = pepper_predict.predict_endpoint('pepper_object_wwtp_optimized_trained_model.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
-                                    input_smiles_type=input_smiles_type)
+                                    input_smiles_type='smi') # The backend accepts single molecules
 
     # Select what to show in the app
     logb = predictions_df['logB_predicted']
