@@ -30,6 +30,16 @@ conventional wastewater treatment, that is, the percentage that potentially esca
 without being successfully removed. Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
 for further details.  
 """)
+
+st.write('### Select a model')
+# Dropdown menu for selecting a molecule
+endpoints = ['WWTP breakthrough', 'Soil half-life']
+model_selected_from_box = st.selectbox('Choose endpoint to predict',
+                                       placeholder='Choose an option',
+                                       index=None,
+                                       options=endpoints)
+
+
 st.write("#### If you just want to check the app you may select example smiles from the box below")
 
 # Dropdown menu for selecting a molecule
@@ -64,10 +74,18 @@ if search_molecule or selected_from_box:
             st.warning('SMILES string accepted: Breakthrough will be calculated', icon='✅')
 
             # molecule = pd.DataFrame({'SMILES': [molecule]})
-
             # Calculate using pepper-lab
-            from predict_target_endpoint import predict
-            predictions_df = predict(molecule, input_smiles_type='smi')
+            if model_selected_from_box == 'WWTP breakthrough':
+                from predict_target_endpoint import predict_WWTP_breakthrough
+                predictions_df = predict_WWTP_breakthrough(molecule, input_smiles_type='smi')
+
+            elif model_selected_from_box == 'Soil half-life':
+                # Calculate using pepper-lab
+                from predict_target_endpoint import predict_soil_DT50
+                predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi')
+            else:
+                st.write("Please choose an option")
+
 
             st.markdown(predictions_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 

@@ -1,7 +1,7 @@
 from rdkit.Chem import PandasTools
 
 
-def predict(input_data, input_smiles_type: str = 'dataframe'):
+def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
     from pepper_lab.predict import Predict
 
     input_smiles = input_data
@@ -26,6 +26,22 @@ def predict(input_data, input_smiles_type: str = 'dataframe'):
                                      pepper_predict.model.smiles_name,
                                      'Breakthrough (%)',
                                      'Confidence 0-1']]
+
+    PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
+    predictions_df.rename(columns={'ROMol': 'Structure'})
+    predictions_df.drop(columns='SMILES', inplace=True)
+
+    return predictions_df
+
+
+def predict_soil_DT50(input_data, input_smiles_type: str = 'dataframe'):
+    from pepper_lab.predict import Predict
+
+    input_smiles = input_data
+    pepper_predict = Predict(renku=True)
+    predictions_df = pepper_predict.predict_endpoint('final_model_soil_all_data_default_setup.pkl',
+                                    input_model_format='pickle', input_smiles=input_smiles,
+                                    input_smiles_type=input_smiles_type)
 
     PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
     predictions_df.rename(columns={'ROMol': 'Structure'})

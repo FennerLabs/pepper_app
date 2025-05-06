@@ -17,6 +17,13 @@ def main():
     # Upload CSV file
     uploaded_file = st.file_uploader("Upload a CSV file with chemical substance data", type="csv")
 
+    # Dropdown menu for selecting a molecule
+    endpoints = ['WWTP breakthrough', 'Soil half-life']
+    model_selected_from_box = st.selectbox('Choose endpoint to predict',
+                                     placeholder='Choose an option',
+                                     index=None,
+                                     options=endpoints)
+
     @st.cache_data
     def convert_df(df):
         # IMPORTANT: Cache the conversion to prevent computation on every rerun
@@ -40,9 +47,16 @@ def main():
 
         print('Start predictions')
 
-        # Calculate using pepper-lab
-        from predict_target_endpoint import predict
-        predictions_df = predict(input_data)
+        if model_selected_from_box == 'WWTP breakthrough':
+            from predict_target_endpoint import predict_WWTP_breakthrough
+            predictions_df = predict_WWTP_breakthrough(input_data)
+        elif model_selected_from_box == 'Soil half-life':
+            # Calculate using pepper-lab
+            from predict_target_endpoint import predict_soil_DT50
+            predictions_df = predict_soil_DT50(input_data)
+        else:
+            st.write("Please choose an option")
+
 
         # Show the predictions
         st.markdown(""" ### Predictions: """)
