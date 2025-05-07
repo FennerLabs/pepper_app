@@ -25,15 +25,19 @@ figure_names = {
 # Title and instructions
 st.write("# Enter the SMILES string for your molecule of interest")
 st.markdown("""
-Currently we support the prediction of the expected percentage breakthrough of micropollutants from
+Currently we support the prediction of the following endpoints:
+- expected percentage breakthrough of micropollutants from
 conventional wastewater treatment, that is, the percentage that potentially escapes the plant 
-without being successfully removed. Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
+without being successfully removed. 
+- primary half-life (DT50) in soil, trained on regulatory data on OECD 307 soil biodegradation studies for pesticides.
+
+Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
 for further details.  
 """)
 
 st.write('### Select a model')
 # Dropdown menu for selecting a molecule
-endpoints = ['WWTP breakthrough', 'Soil half-life']
+endpoints = ['WWTP breakthrough', 'Soil half-life (fast)', 'Soil half-life (using enviPath rules)']
 model_selected_from_box = st.selectbox('Choose endpoint to predict',
                                        placeholder='Choose an option',
                                        index=None,
@@ -75,18 +79,25 @@ if search_molecule or selected_from_box:
 
             # molecule = pd.DataFrame({'SMILES': [molecule]})
             # Calculate using pepper-lab
-            if model_selected_from_box == 'WWTP breakthrough':
-                from predict_target_endpoint import predict_WWTP_breakthrough
-                predictions_df = predict_WWTP_breakthrough(molecule, input_smiles_type='smi')
+            with st.spinner("Prediction is running...", show_time=True):
 
-            elif model_selected_from_box == 'Soil half-life':
-                # Calculate using pepper-lab
-                from predict_target_endpoint import predict_soil_DT50
-                predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi')
-            else:
-                st.write("Please choose an option")
+                if model_selected_from_box == 'WWTP breakthrough':
+                    from predict_target_endpoint import predict_WWTP_breakthrough
+                    predictions_df = predict_WWTP_breakthrough(molecule, input_smiles_type='smi')
 
+                elif model_selected_from_box == 'Soil half-life (fast)':
+                    # Calculate using pepper-lab
+                    from predict_target_endpoint import predict_soil_DT50
+                    predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi', model_type='fast')
+                elif model_selected_from_box == 'Soil half-life (using enviPath rules)':
+                    # Calculate using pepper-lab
+                    from predict_target_endpoint import predict_soil_DT50
 
+                    predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi', model_type='enviPath')
+                else:
+                    st.write("Please choose an option")
+
+            st.subheader('Done!')
             st.markdown(predictions_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
