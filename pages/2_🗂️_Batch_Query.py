@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import time
 
 def main():
 
@@ -52,6 +52,7 @@ def main():
         print('Start predictions')
 
         with st.spinner("Prediction is running...", show_time=True):
+            time.sleep(1)
 
             if model_selected_from_box == 'WWTP breakthrough':
                 from predict_target_endpoint import predict_WWTP_breakthrough
