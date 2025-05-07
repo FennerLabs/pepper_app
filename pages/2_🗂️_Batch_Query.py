@@ -52,7 +52,7 @@ def main():
         print('Start predictions')
 
         with st.spinner("Prediction is running...", show_time=True):
-            time.sleep(1)
+            time.sleep(3)
 
             if model_selected_from_box == 'WWTP breakthrough':
                 from predict_target_endpoint import predict_WWTP_breakthrough
