@@ -2,11 +2,6 @@ import streamlit as st
 from rdkit import Chem
 
 
-st.set_page_config(
-    page_title="👋 Single Molecule Predictions",
-    page_icon="👋",
-)
-
 molecule = ''
 
 # Define figure names
@@ -97,7 +92,7 @@ if search_molecule or selected_from_box:
                 else:
                     st.write("Please choose an option")
 
-            st.subheader('Done!')
+            st.success('Done!')
             st.markdown(predictions_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
