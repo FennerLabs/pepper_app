@@ -1,3 +1,11 @@
+# Ignore folders related to the docker
+backend/
+streamlit/
+
+# Ignore notebook used fro training
+notebooks/
+
+# Others
 .idea/
 __pycache__/
 *.ipynb
@@ -5,7 +13,3 @@ __pycache__/
 
 *.png
 *.pdf
-
-config/
-notebooks/
-
