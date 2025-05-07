@@ -32,7 +32,7 @@ st.sidebar.download_button(
 
 st.markdown(
     """
-    Pepper-app is the web app version of ([PEPPER](https://github.com/FennerLabs/pepper)) a collection of models and methods 
+    Pepper-app is the web app version of [PEPPER](https://github.com/FennerLabs/pepper), a collection of models and methods 
     developed by [FennerLabs](https://github.com/FennerLabs) to Predict Environmental Pollutant PERsistence.
     If you want to learn more about Prof. Kathrin Fenner and her group
     follow this [link](https://www.eawag.ch/en/department/uchem/organisation/gruppenseite-fenner).
@@ -47,14 +47,15 @@ st.markdown(
     (Swiss Federal Institute of Aquatic Science & Technology)
     
     ### What is this app for?
-    This allows you to predict different endpoints related to persistence of pollutants in the environment.
-    You can find the definitions of currently supported endpoints in [Learn more](https://pepper-app.streamlit.app/Learn_more). 
-     
+    The pepper-app allows you to predict different endpoints related to persistence of pollutants in the environment.
     
     ### How to use the app? 
     - First, choose if you want to make queries for a few molecules one by one 
     ([Single molecule](https://pepper-app.streamlit.app/Single_Molecule)) or for several 
     molecules at once ([Batch query](https://pepper-app.streamlit.app/Batch_Query)). 
+    - Second, choose the endpoint you want to predict. Currently supported are:
+        - Breakthrough (%) for wastewater treatment plants (WWTP)
+        - Primary half-life (DT50) for soil
     
     ##### Single molecule
     
