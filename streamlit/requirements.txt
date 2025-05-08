@@ -1,4 +1,4 @@
 pandas>=2.2.3,<3.0.0
-streamlit>=1.41.1
+requests
 rdkit>=2024.9.5,<2025.0.0
-pepper-lab>=1.1.0
+streamlit>=1.41.1
