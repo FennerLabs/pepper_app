@@ -1,6 +1,5 @@
-fastapi==0.115.2
-joblib==1.4.2
-molfeat==0.10.0
-numpy==1.26.0
-scikit-learn==1.3.2
-uvicorn==0.32.0
+fastapi>=0.115.2,<1.0.0
+pandas>=2.2.3,<3.0.0
+pepper-lab>=1.1.0
+rdkit>=2024.9.5,<2025.0.0
+uvicorn>=0.32.0,<1.0.0
