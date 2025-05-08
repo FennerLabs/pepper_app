@@ -1,6 +1,15 @@
 import streamlit as st
 import pandas as pd
+from rdkit.Chem import PandasTools
+import requests
 
+from utils import image_from_mol
+
+@st.cache_data
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode("utf-8")
+example_csv = pd.read_csv('test_pepper_app.csv')
 
 def main():
 
@@ -17,11 +26,7 @@ def main():
     # Upload CSV file
     uploaded_file = st.file_uploader("Upload a CSV file with chemical substance data", type="csv")
 
-    @st.cache_data
-    def convert_df(df):
-        # IMPORTANT: Cache the conversion to prevent computation on every rerun
-        return df.to_csv().encode("utf-8")
-    example_csv = pd.read_csv('test_pepper_app.csv')
+
     csv = convert_df(example_csv)
 
     st.sidebar.download_button(
@@ -33,20 +38,27 @@ def main():
 
     if uploaded_file is not None:
         # Load the uploaded data
-        input_data = pd.read_csv(uploaded_file)
+        df = pd.read_csv(uploaded_file)
 
         # Show the input data
-        st.write("Uploaded data:", input_data)
+        st.write(" ### Uploaded data:", df)
 
         print('Start predictions')
-
         # Calculate using pepper-lab
-        from predict_target_endpoint import predict
-        predictions_df = predict(input_data)
+        response = requests.request("get", "http://backend:8000/predict/", params={"smiles": ",".join(df.SMILES)}).json()
+        for key, item in response.items():
+            df[key] = item
+        
+        PandasTools.AddMoleculeColumnToFrame(df, 'SMILES', 'Structure')
+        df["Structure"] = df["Structure"].apply(image_from_mol)
+        df.drop(columns='SMILES', inplace=True)
 
         # Show the predictions
         st.markdown(""" ### Predictions: """)
-        st.dataframe(predictions_df)
+        config = {
+            "Structure": st.column_config.ImageColumn(),
+        }
+        st.dataframe(df, column_config=config, row_height=100)
 
         # st.write("""
         # 📢⚠️ The frame below shows the predictions along chemical structures.
@@ -57,4 +69,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print('app is running')
