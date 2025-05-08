@@ -46,8 +46,7 @@ def main():
         print('Start predictions')
         # Calculate using pepper-lab
         response = requests.request("get", "http://backend:8000/predict/", params={"smiles": ",".join(df.SMILES)}).json()
-        for key, item in response.items():
-            df[key] = item
+        df = pd.DataFrame.from_dict(response)
         
         PandasTools.AddMoleculeColumnToFrame(df, 'SMILES', 'Structure')
         df["Structure"] = df["Structure"].apply(image_from_mol)
@@ -56,7 +55,7 @@ def main():
         # Show the predictions
         st.markdown(""" ### Predictions: """)
         config = {
-            "Structure": st.column_config.ImageColumn(),
+            "Structure": st.column_config.ImageColumn(width="medium"),
         }
         st.dataframe(df, column_config=config, row_height=100)
 
