@@ -1,5 +1,6 @@
 import streamlit as st
 from rdkit import Chem
+from utils import image_from_mol
 
 
 molecule = ''
@@ -93,8 +94,14 @@ if search_molecule or selected_from_box:
                     st.write("Please choose an option")
 
             st.success('Done!')
-            st.markdown(predictions_df.to_html(escape=False, index=False), unsafe_allow_html=True)
-
+            # Show the predictions
+            st.markdown(""" ### Predictions: """)
+            # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
+            config = {
+                "Structure": st.column_config.ImageColumn(width="medium"),
+            }
+            st.dataframe(predictions_df, column_config=config, row_height=100)
+            # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
 
 else:
     st.warning("Please enter a SMILES string")

@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+from rdkit.Chem import PandasTools
+from utils import image_from_mol
 
 
 def main():
@@ -69,15 +71,27 @@ def main():
 
         st.success("Done!")
 
+        # # Show the predictions
+        # st.markdown(""" ### Predictions: """)
+        # st.dataframe(predictions_df)
+        #
+        # PandasTools.AddMoleculeColumnToFrame(predictions_df, 'SMILES', 'Structure')
+        # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
+        # predictions_df.drop(columns='SMILES', inplace=True)
+
         # Show the predictions
         st.markdown(""" ### Predictions: """)
-        st.dataframe(predictions_df)
+        # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
+        config = {
+            "Structure": st.column_config.ImageColumn(width="medium"),
+        }
+        st.dataframe(predictions_df, column_config=config, row_height=100)
 
-        st.write("""
-        📢⚠️ The frame below shows the predictions along chemical structures.
-        We are working to give you the chemical structures as part of the file to be downloaded.  """)
-
-        st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
+        # st.write("""
+        # 📢⚠️ The frame below shows the predictions along chemical structures.
+        # We are working to give you the chemical structures as part of the file to be downloaded.  """)
+        #
+        # st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
 
 
 if __name__ == '__main__':

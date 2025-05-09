@@ -1,5 +1,12 @@
-from narwhals import DataFrame
+# from narwhals import DataFrame
 from rdkit.Chem import PandasTools
+from utils import image_from_mol
+
+
+def render_structures(predictions_df):
+    PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES', molCol='Structure')
+    predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
+    return predictions_df
 
 
 def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
@@ -24,14 +31,14 @@ def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
     predictions_df['Confidence 0-1'] = rounded_confidence
 
     predictions_df = predictions_df[[pepper_predict.model.compound_name,
-                                     pepper_predict.model.smiles_name,
                                      'Breakthrough (%)',
-                                     'Confidence 0-1']]
+                                     'Confidence 0-1',
+                                     pepper_predict.model.smiles_name]]
 
-    PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES')
-    predictions_df.rename(columns={'ROMol': 'Structure'}, inplace=True)
-    predictions_df.drop(columns='SMILES', inplace=True)
-
+    # PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES', molCol='Structure')
+    # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
+    # predictions_df.drop(columns='SMILES', inplace=True)
+    predictions_df = render_structures(predictions_df)
     return predictions_df
 
 
@@ -78,9 +85,9 @@ def predict_soil_DT50(input_data, model_type='fast', input_smiles_type: str = 'd
                                    'logDT50_mean_experimental': 'experimental logDT50',
                                    'logDT50_std_experimental': 'experimental variability (stdev of logDT50)'},
                           inplace = True)
-    predictions_df = predictions_df[['SMILES', 'Compound name', 'Predicted DT50 [days]','Confidence level',
+    predictions_df = predictions_df[['Compound name', 'Predicted DT50 [days]','Confidence level',
                                      'Predicted logDT50 [log(days)]',
                                      'Predicted uncertainty (stdev of logDT50)', 'experimental logDT50',
-                                     'experimental variability (stdev of logDT50)', 'warnings']]
-    PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES', molCol='Structure')
+                                     'experimental variability (stdev of logDT50)', 'warnings', 'SMILES',]]
+    predictions_df = render_structures(predictions_df)
     return predictions_df
