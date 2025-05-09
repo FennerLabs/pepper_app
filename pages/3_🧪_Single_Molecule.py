@@ -1,6 +1,5 @@
 import streamlit as st
 from rdkit import Chem
-from utils import image_from_mol
 
 
 molecule = ''
@@ -73,7 +72,6 @@ if search_molecule or selected_from_box:
             st.write(f"Your input: {molecule}")
             st.warning('SMILES string accepted: Breakthrough will be calculated', icon='✅')
 
-            # molecule = pd.DataFrame({'SMILES': [molecule]})
             # Calculate using pepper-lab
             with st.spinner("Prediction is running...", show_time=True):
 
@@ -96,12 +94,10 @@ if search_molecule or selected_from_box:
             st.success('Done!')
             # Show the predictions
             st.markdown(""" ### Predictions: """)
-            # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
             config = {
                 "Structure": st.column_config.ImageColumn(width="medium"),
             }
             st.dataframe(predictions_df, column_config=config, row_height=100)
-            # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
 
 else:
     st.warning("Please enter a SMILES string")

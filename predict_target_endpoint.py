@@ -35,9 +35,6 @@ def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
                                      'Confidence 0-1',
                                      pepper_predict.model.smiles_name]]
 
-    # PandasTools.AddMoleculeColumnToFrame(predictions_df, smilesCol='SMILES', molCol='Structure')
-    # predictions_df["Structure"] = predictions_df["Structure"].apply(image_from_mol)
-    # predictions_df.drop(columns='SMILES', inplace=True)
     predictions_df = render_structures(predictions_df)
     return predictions_df
 
