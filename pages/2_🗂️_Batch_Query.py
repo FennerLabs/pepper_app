@@ -72,13 +72,10 @@ def main():
 
         # Show the predictions
         st.markdown(""" ### Predictions: """)
-        st.dataframe(predictions_df)
-
-        st.write("""
-        📢⚠️ The frame below shows the predictions along chemical structures.
-        We are working to give you the chemical structures as part of the file to be downloaded.  """)
-
-        st.markdown(predictions_df.to_html(escape=False), unsafe_allow_html=True)
+        config = {
+            "Structure": st.column_config.ImageColumn(width="medium"),
+        }
+        st.dataframe(predictions_df, column_config=config, row_height=100)
 
 
 if __name__ == '__main__':

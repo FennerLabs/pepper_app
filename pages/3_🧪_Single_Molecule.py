@@ -72,7 +72,6 @@ if search_molecule or selected_from_box:
             st.write(f"Your input: {molecule}")
             st.warning('SMILES string accepted: Breakthrough will be calculated', icon='✅')
 
-            # molecule = pd.DataFrame({'SMILES': [molecule]})
             # Calculate using pepper-lab
             with st.spinner("Prediction is running...", show_time=True):
 
@@ -93,8 +92,12 @@ if search_molecule or selected_from_box:
                     st.write("Please choose an option")
 
             st.success('Done!')
-            st.markdown(predictions_df.to_html(escape=False, index=False), unsafe_allow_html=True)
-
+            # Show the predictions
+            st.markdown(""" ### Predictions: """)
+            config = {
+                "Structure": st.column_config.ImageColumn(width="medium"),
+            }
+            st.dataframe(predictions_df, column_config=config, row_height=100)
 
 else:
     st.warning("Please enter a SMILES string")
