@@ -2,3 +2,4 @@ pandas==2.2.3
 streamlit
 rdkit>=2024.9.5,<2025.0.0
 pepper-lab>=1.1.0
+scikit-learn==1.6.1
