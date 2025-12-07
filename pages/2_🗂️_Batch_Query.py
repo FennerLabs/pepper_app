@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import time
+from pepper_lab.predict import Predict
 
 def main():
 
@@ -55,8 +56,22 @@ def main():
             time.sleep(3)
 
             if model_selected_from_box == 'WWTP breakthrough':
+                from pepper_lab.predict import Predict
+                pepper_predict = Predict(renku=True)
+                my_model = Predict.load_pickle('pepper_object_wwtp_optimized_trained_model.pkl')
+                model_data = my_model.data[['SMILES', 'logB']]
+                model_data['Training Breakthrough (%)'] = round((10**model_data['logB'])*100,1)
+                model_data.drop(columns='logB', inplace=True)
+                # st.write("This is the model data", model_data)
                 from predict_target_endpoint import predict_WWTP_breakthrough
                 predictions_df = predict_WWTP_breakthrough(input_data)
+                try:
+                    merged_df = pd.merge(predictions_df, model_data, on='SMILES', how='left', suffixes=('', '_model'))
+                    # st.write("Merged DataFrame:", merged_df)
+                except Exception as e:
+                    st.write("Error trying to fetch available experimental data:", e)
+                if merged_df is not None:
+                    predictions_df = merged_df
             elif model_selected_from_box == 'Soil half-life (fast)':
                 # Calculate using pepper-lab
                 from predict_target_endpoint import predict_soil_DT50
