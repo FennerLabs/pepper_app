@@ -20,7 +20,7 @@ def main():
     """)
 
     # Dropdown menu for selecting a molecule
-    endpoints = ['WWTP breakthrough', 'Soil half-life (fast)', 'Soil half-life (using enviPath rules)', 'Soil half-life (Salz)']
+    endpoints = ['WWTP breakthrough', 'Soil half-life (Salz)']
     model_selected_from_box = st.selectbox('Choose endpoint to predict',
                                      placeholder='Choose an option',
                                      index=None,
@@ -72,14 +72,7 @@ def main():
                     st.write("Error trying to fetch available experimental data:", e)
                 if merged_df is not None:
                     predictions_df = merged_df
-            elif model_selected_from_box == 'Soil half-life (fast)':
-                # Calculate using pepper-lab
-                from predict_target_endpoint import predict_soil_DT50
-                predictions_df = predict_soil_DT50(input_data, model_type = 'fast')
-            elif model_selected_from_box == 'Soil half-life (using enviPath rules)':
-                # Calculate using pepper-lab
-                from predict_target_endpoint import predict_soil_DT50
-                predictions_df = predict_soil_DT50(input_data, model_type = 'enviPath')
+
             elif model_selected_from_box == 'Soil half-life (Salz)':
                 from predict_target_endpoint import predict_soil_DT50
                 predictions_df = predict_soil_DT50(input_data, model_type = 'Salz')
