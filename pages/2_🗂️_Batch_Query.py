@@ -19,7 +19,7 @@ def main():
     """)
 
     # Dropdown menu for selecting a molecule
-    endpoints = ['WWTP breakthrough', 'Soil half-life (Salz)']
+    endpoints = ['WWTP breakthrough', 'Soil half-life']
     model_selected_from_box = st.selectbox('Choose endpoint to predict',
                                      placeholder='Choose an option',
                                      index=None,
@@ -72,7 +72,7 @@ def main():
                 if merged_df is not None:
                     predictions_df = merged_df
 
-            elif model_selected_from_box == 'Soil half-life (Salz)':
+            elif model_selected_from_box == 'Soil half-life':
                 from predict_target_endpoint import predict_soil_DT50
                 predictions_df = predict_soil_DT50(input_data, model_type = 'Salz')
             else:

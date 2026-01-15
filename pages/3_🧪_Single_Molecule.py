@@ -32,14 +32,14 @@ for further details.
 
 st.write('### Select a model')
 # Dropdown menu for selecting a molecule
-endpoints = ['WWTP breakthrough', 'Soil half-life (Salz)']
+endpoints = ['WWTP breakthrough', 'Soil half-life']
 model_selected_from_box = st.selectbox('Choose endpoint to predict',
                                        placeholder='Choose an option',
                                        index=None,
                                        options=endpoints)
 
 
-st.write("#### If you just want to check the app you may select example smiles from the box below")
+st.write("#### If you just want to check the app you may select example molecule from the box below")
 
 # Dropdown menu for selecting a molecule
 selected_from_box = st.selectbox('Choose SMILES from the list:',
@@ -79,7 +79,7 @@ if search_molecule or selected_from_box:
                     from predict_target_endpoint import predict_WWTP_breakthrough
                     predictions_df = predict_WWTP_breakthrough(molecule, input_smiles_type='smi')
                 
-                elif model_selected_from_box == 'Soil half-life (Salz)':
+                elif model_selected_from_box == 'Soil half-life':
                     # Calculate using pepper-lab
                     from predict_target_endpoint import predict_soil_DT50
                     predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi', model_type='Salz')

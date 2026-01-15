@@ -42,10 +42,10 @@ def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
 def get_confidence_level(standard_deviation_list):
     new_list = []
     for stdev in standard_deviation_list.values:
-        if stdev < 0.5:
-            cat = 'high'
-        elif stdev < 0.7:
-            cat = 'medium'
+        if stdev <= 0.5:
+            cat = 'good'
+        elif stdev <= 0.7:
+            cat = 'acceptable'
         else:
             cat = 'low'
         new_list.append(cat)
