@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import time
-from pepper_lab.predict import Predict
 
 def main():
 
