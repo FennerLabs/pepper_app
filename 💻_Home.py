@@ -72,7 +72,7 @@ st.markdown(
      ### Want to go beyond the web app?
     - Check out [My own pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
     
-    ### Cite us
+    ### How to cite us
     ###### WWTP breakthrough
     Cordero Solano, J. A., Hafner, J., McLachlan, M. S., Singer, H. & Fenner, K. 
     Predicting Micropollutant Removal in Wastewater Treatment Based on Molecular Structure: Benchmark Data and Models. 
@@ -94,7 +94,7 @@ st.markdown(
     - [Albert Anguera](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/albert-anguera-sempere/show/) 
     (Swiss Federal Institute of Aquatic Science & Technology)
     
-    ## Acknowledgments 
+    ### Acknowledgments 
     - Data to train our models was collected by members of Stockholm University including 
     [Zhe Li](https://www.su.se/english/profiles/zhli2569-1.189472), 
     [Yijing Li](https://www.su.se/english/profiles/yili6654-1.663685) 
