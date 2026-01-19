@@ -7,9 +7,9 @@ st.set_page_config(
 )
 
 # Streamlit app title
-st.title("PEPPER: an app to Predict Environmental Pollutant PERsistence ")
+st.title("PEPPER - Predict Environmental Pollutant PERsistence ")
 
-st.write("# Welcome to Pepper web app! 👋")
+st.write("## Welcome to Pepper web app! 👋")
 
 
 @st.cache_data
@@ -38,51 +38,70 @@ st.markdown(
     follow this [link](https://www.eawag.ch/en/department/uchem/organisation/gruppenseite-fenner).
     
     
-    The main developers of the PEPPER package and the Pepper-app are:
-    - [Jose Cordero ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jose-cordero/show/)
-    (Swiss Federal Institute of Aquatic Science & Technology) 
-    - [Jasmin Hafner ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jasmin-hafner/show/) 
-    (Swiss Federal Institute of Aquatic Science & Technology &  University of Zurich)
-    - [Albert Anguera](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/albert-anguera-sempere/show/) 
-    (Swiss Federal Institute of Aquatic Science & Technology)
+    The pepper-app allows you to predict the following endpoints related to persistence of pollutants in the environment.
     
-    ### What is this app for?
-    The pepper-app allows you to predict different endpoints related to persistence of pollutants in the environment.
-    
+    - Breakthrough (%) for wastewater treatment plants (WWTP)
+    - Primary soil biotransformation half-life (DT50)
+    """)
+st.divider()
+st.markdown(
+    """
     ### How to use the app? 
-    - First, choose if you want to make queries for a few molecules one by one 
+    1. Choose if you want to run predictions for single molecules
     ([Single molecule](https://pepper-app.streamlit.app/Single_Molecule)) or for several 
-    molecules at once ([Batch query](https://pepper-app.streamlit.app/Batch_Query)). 
-    - Second, choose the endpoint you want to predict. Currently supported are:
-        - Breakthrough (%) for wastewater treatment plants (WWTP)
-        - Primary half-life (DT50) for soil
+    molecules at once ([Batch query](https://pepper-app.streamlit.app/Batch_Query))
+ 
+    ###### Single molecule
     
-    ##### Single molecule
+    - Enter a valid SMILES string in the search bar (you can obtain valid SMILES using ChemDraw or from databases like PubChem)
+    - If you just want to check out the app, you can select a molecule from the dropdown list
     
-    - If you want to make queries one by one please enter a valid SMILES string on the search bar. 
-    You can get valid SMILES using ChemDraw or from databases like PubChem.
-    - If you just want to check out the app, you can simply select a molecule from the droplist.
+    ###### Batch query
     
-    ##### Batch Query
-    
-    - For many molecules use the batch mode by uploading a csv file with a list of molecules for which you want to predict.
-    - The csv file must have a column of SMILES strings.
-    We provide an example file 📄 available for download on the left panel 👈
-    - You can then download the results as a csv file by clicking on the download button on 
-    the upper right corner of the predictions dataframe.
+    - Upload a csv file with a list of molecules for which you want to predict.
+    - The csv file must have a column of SMILES strings. We provide an example file 📄 available for download on the left panel 👈
     - We recommend including in the input file a column with additional information (e.g. your own ID for each molecule)
-    to keep track of your predictions.
-    That information will also appear in the predictions file.   
+    to keep track of your predictions. That information will also appear in the predictions file.
     
     
-    ### Want to learn more about our predictions? 
+    2. Choose the endpoint you want to predict
+    3. Inspect results online or download results as .csv file (download button on 
+    the upper right corner of the predictions dataframe)
+       
+    
+    ### Want to learn more about our models? 
     - Check out our [Learn more](https://pepper-app.streamlit.app/Learn_more) section for details about the models and the training data.  
     
      ### Want to go beyond the web app?
     - Check out [My own pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
     
+    """)
+st.divider()
+st.markdown(
+    """
+    ### How to cite us
+    ###### WWTP breakthrough
+    Cordero Solano, J. A., Hafner, J., McLachlan, M. S., Singer, H. & Fenner, K. 
+    Predicting Micropollutant Removal in Wastewater Treatment Based on Molecular Structure: Benchmark Data and Models. 
+    Environ. Sci. Technol. [doi:10.1021/acs.est.5c09314](https://doi.org/10.1021/acs.est.5c09314) (2025).
     
-    ## Acknowledgments 
+    ###### Soil half-lives
+    Salz, M., Cordero Solano, J. A., Fenner, K. & Hafner, J. Confidently uncertain: 
+    Probabilistic machine learning to predict soil biotransformation half-lives. 
+    Preprint at [https://doi.org/10.26434/chemrxiv-2025-xmslf](https://doi.org/10.26434/chemrxiv-2025-xmslf) (2025).
+
+    
+    ### Main contributors to PEPPER and PEPPER-app
+    - [Jose Cordero ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jose-cordero/show/)
+    (Swiss Federal Institute of Aquatic Science & Technology) 
+    - [Jasmin Hafner ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/jasmin-hafner/show/) 
+    (Swiss Federal Institute of Aquatic Science & Technology &  University of Zurich)
+    - [Moritz Salz ](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/moritz-salz/show/) 
+    (Swiss Federal Institute of Aquatic Science & Technology)
+    - [Albert Anguera](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/albert-anguera-sempere/show/) 
+    (Swiss Federal Institute of Aquatic Science & Technology)
+    
+    ### Acknowledgments 
     - Data to train our models was collected by members of Stockholm University including 
     [Zhe Li](https://www.su.se/english/profiles/zhli2569-1.189472), 
     [Yijing Li](https://www.su.se/english/profiles/yili6654-1.663685) 

@@ -5,27 +5,28 @@ import time
 def main():
 
     # Streamlit app title
-    st.title("PEPPER: an app to Predict Environmental Pollutant PERsistence ")
+    st.title("Batch query")
 
     st.markdown("""
-    Currently we support the prediction of the following endpoints:
-    - expected percentage breakthrough of micropollutants from
-    conventional wastewater treatment, that is, the percentage that potentially escapes the plant 
-    without being successfully removed. 
-    - primary half-life (DT50) in soil, trained on regulatory data on OECD 307 soil biodegradation studies for pesticides.
+    We currently support the prediction of the following endpoints:
+    - WWTP breakthrough - The breakthrough of micropollutants in
+    conventional wastewater treatment, i.e., the percentage of the micropollutant concentration after the treatment as compared to before the treatment. 
+    - Soil half-life - Primary half-life (DT50) in soil, trained on regulatory data on OECD 307 soil biodegradation studies for pesticides.
     
     Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
     for further details.  
     """)
-
+    st.divider()
+    st.write('### ⚙️  Persistence endpoint')
     # Dropdown menu for selecting a molecule
-    endpoints = ['WWTP breakthrough', 'Soil half-life (fast)', 'Soil half-life (using enviPath rules)']
+    endpoints = ['WWTP breakthrough', 'Soil half-life']
     model_selected_from_box = st.selectbox('Choose endpoint to predict',
                                      placeholder='Choose an option',
                                      index=None,
                                      options=endpoints)
 
     # Upload CSV file
+    st.write('### 🧪  Input molecules')
     uploaded_file = st.file_uploader("Upload a CSV file with chemical substance data", type="csv")
 
     @st.cache_data
@@ -55,16 +56,26 @@ def main():
             time.sleep(3)
 
             if model_selected_from_box == 'WWTP breakthrough':
+                from pepper_lab.predict import Predict
+                pepper_predict = Predict(renku=True)
+                my_model = Predict.load_pickle('pepper_object_wwtp_optimized_trained_model.pkl')
+                model_data = my_model.data[['SMILES', 'logB']]
+                model_data['Training Breakthrough (%)'] = round((10**model_data['logB'])*100,1)
+                model_data.drop(columns='logB', inplace=True)
+                # st.write("This is the model data", model_data)
                 from predict_target_endpoint import predict_WWTP_breakthrough
                 predictions_df = predict_WWTP_breakthrough(input_data)
-            elif model_selected_from_box == 'Soil half-life (fast)':
-                # Calculate using pepper-lab
+                try:
+                    merged_df = pd.merge(predictions_df, model_data, on='SMILES', how='left', suffixes=('', '_model'))
+                    # st.write("Merged DataFrame:", merged_df)
+                except Exception as e:
+                    st.write("Error trying to fetch available experimental data:", e)
+                if merged_df is not None:
+                    predictions_df = merged_df
+
+            elif model_selected_from_box == 'Soil half-life':
                 from predict_target_endpoint import predict_soil_DT50
-                predictions_df = predict_soil_DT50(input_data, model_type = 'fast')
-            elif model_selected_from_box == 'Soil half-life (using enviPath rules)':
-                # Calculate using pepper-lab
-                from predict_target_endpoint import predict_soil_DT50
-                predictions_df = predict_soil_DT50(input_data, model_type = 'enviPath')
+                predictions_df = predict_soil_DT50(input_data, model_type = 'Salz')
             else:
                 st.write("Please choose an option")
 

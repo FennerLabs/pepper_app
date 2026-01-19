@@ -42,10 +42,10 @@ def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
 def get_confidence_level(standard_deviation_list):
     new_list = []
     for stdev in standard_deviation_list.values:
-        if stdev < 0.5:
-            cat = 'high'
-        elif stdev < 0.7:
-            cat = 'medium'
+        if stdev <= 0.5:
+            cat = 'good'
+        elif stdev <= 0.7:
+            cat = 'acceptable'
         else:
             cat = 'low'
         new_list.append(cat)
@@ -63,6 +63,11 @@ def predict_soil_DT50(input_data, model_type='fast', input_smiles_type: str = 'd
                                     input_smiles_type=input_smiles_type)
     elif model_type == 'enviPath':
         predictions_df = pepper_predict.predict_endpoint('final_model_soil_all_data_default_setup.pkl',
+                                    input_model_format='pickle', input_smiles=input_smiles,
+                                    input_smiles_type=input_smiles_type)
+        
+    elif model_type == 'Salz':
+        predictions_df = pepper_predict.predict_endpoint('final_model_GPR.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
                                     input_smiles_type=input_smiles_type)
     else:

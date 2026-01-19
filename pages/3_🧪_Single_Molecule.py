@@ -18,28 +18,27 @@ figure_names = {
 }
 
 # Title and instructions
-st.write("# Enter the SMILES string for your molecule of interest")
+st.write("# Single molecule prediction")
 st.markdown("""
-Currently we support the prediction of the following endpoints:
-- expected percentage breakthrough of micropollutants from
-conventional wastewater treatment, that is, the percentage that potentially escapes the plant 
-without being successfully removed. 
-- primary half-life (DT50) in soil, trained on regulatory data on OECD 307 soil biodegradation studies for pesticides.
-
-Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
-for further details.  
+    We currently support the prediction of the following endpoints:
+    - WWTP breakthrough - The breakthrough of micropollutants in
+    conventional wastewater treatment, i.e., the percentage of the micropollutant concentration after the treatment as compared to before the treatment. 
+    - Soil half-life - Primary half-life (DT50) in soil, trained on regulatory data on OECD 307 soil biodegradation studies for pesticides.
+    
+    Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
+    for further details.
 """)
-
-st.write('### Select a model')
+st.divider()
+st.write('### ⚙️  Persistence endpoint')
 # Dropdown menu for selecting a molecule
-endpoints = ['WWTP breakthrough', 'Soil half-life (fast)', 'Soil half-life (using enviPath rules)']
+endpoints = ['WWTP breakthrough', 'Soil half-life']
 model_selected_from_box = st.selectbox('Choose endpoint to predict',
                                        placeholder='Choose an option',
                                        index=None,
                                        options=endpoints)
 
-
-st.write("#### If you just want to check the app you may select example smiles from the box below")
+st.write('### 🧪  Input molecule')
+st.write("#### Option 1: select an example molecule from the dropdown")
 
 # Dropdown menu for selecting a molecule
 selected_from_box = st.selectbox('Choose SMILES from the list:',
@@ -54,7 +53,7 @@ if selected_from_box:
     molecule = figure_names.get(selected_from_box)
 
 # SMILES string input
-st.write("#### If you have a molecule in mind you can predict using its SMILES string")
+st.write("#### Option 2: Provide the SMILES of a molecule of interest")
 smiles_added_manually = st.text_input("Enter SMILES string here:", '')
 search_molecule = st.button("OK", key='search_molecule', type='primary')
 if search_molecule:
@@ -78,16 +77,12 @@ if search_molecule or selected_from_box:
                 if model_selected_from_box == 'WWTP breakthrough':
                     from predict_target_endpoint import predict_WWTP_breakthrough
                     predictions_df = predict_WWTP_breakthrough(molecule, input_smiles_type='smi')
-
-                elif model_selected_from_box == 'Soil half-life (fast)':
+                
+                elif model_selected_from_box == 'Soil half-life':
                     # Calculate using pepper-lab
                     from predict_target_endpoint import predict_soil_DT50
-                    predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi', model_type='fast')
-                elif model_selected_from_box == 'Soil half-life (using enviPath rules)':
-                    # Calculate using pepper-lab
-                    from predict_target_endpoint import predict_soil_DT50
+                    predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi', model_type='Salz')
 
-                    predictions_df = predict_soil_DT50(molecule, input_smiles_type='smi', model_type='enviPath')
                 else:
                     st.write("Please choose an option")
 
