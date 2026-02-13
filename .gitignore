@@ -13,3 +13,10 @@ __pycache__/
 
 *.png
 *.pdf
+
+
+# Ignore test_files
+test_external_data.csv
+test_notebook.ipynb
+test_external_data/
+
