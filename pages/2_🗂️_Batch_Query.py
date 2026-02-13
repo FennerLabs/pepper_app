@@ -5,19 +5,19 @@ import time
 def main():
 
     # Streamlit app title
-    st.title("PEPPER: an app to Predict Environmental Pollutant PERsistence ")
+    st.title("Batch query")
 
     st.markdown("""
-    Currently we support the prediction of the following endpoints:
-    - expected percentage breakthrough of micropollutants from
-    conventional wastewater treatment, that is, the percentage that potentially escapes the plant 
-    without being successfully removed. 
-    - primary half-life (DT50) in soil, trained on regulatory data on OECD 307 soil biodegradation studies for pesticides.
+    We currently support the prediction of the following endpoints:
+    - WWTP breakthrough - The breakthrough of micropollutants in
+    conventional wastewater treatment, i.e., the percentage of the micropollutant concentration after the treatment as compared to before the treatment. 
+    - Soil half-life - Primary half-life (DT50) in soil, trained on regulatory data on OECD 307 soil biodegradation studies for pesticides.
     
     Visit section [Learn more](https://pepper-app.streamlit.app/Learn_more) 
     for further details.  
     """)
-
+    st.divider()
+    st.write('### ⚙️  Persistence endpoint')
     # Dropdown menu for selecting a molecule
     endpoints = ['WWTP breakthrough', 'Soil half-life']
     model_selected_from_box = st.selectbox('Choose endpoint to predict',
@@ -26,6 +26,7 @@ def main():
                                      options=endpoints)
 
     # Upload CSV file
+    st.write('### 🧪  Input molecules')
     uploaded_file = st.file_uploader("Upload a CSV file with chemical substance data", type="csv")
 
     @st.cache_data

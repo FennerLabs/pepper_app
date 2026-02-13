@@ -38,11 +38,14 @@ st.markdown(
     follow this [link](https://www.eawag.ch/en/department/uchem/organisation/gruppenseite-fenner).
     
     
-    ### What is this app for?
     The pepper-app allows you to predict the following endpoints related to persistence of pollutants in the environment.
-        - Breakthrough (%) for wastewater treatment plants (WWTP)
-        - Primary soil biotransformation half-life (DT50)
     
+    - Breakthrough (%) for wastewater treatment plants (WWTP)
+    - Primary soil biotransformation half-life (DT50)
+    """)
+st.divider()
+st.markdown(
+    """
     ### How to use the app? 
     1. Choose if you want to run predictions for single molecules
     ([Single molecule](https://pepper-app.streamlit.app/Single_Molecule)) or for several 
@@ -72,7 +75,11 @@ st.markdown(
      ### Want to go beyond the web app?
     - Check out [My own pepper-app](https://github.com/FennerLabs/pepper_app) if you want to install the app locally. 
     
-    ### Cite us
+    """)
+st.divider()
+st.markdown(
+    """
+    ### How to cite us
     ###### WWTP breakthrough
     Cordero Solano, J. A., Hafner, J., McLachlan, M. S., Singer, H. & Fenner, K. 
     Predicting Micropollutant Removal in Wastewater Treatment Based on Molecular Structure: Benchmark Data and Models. 
@@ -94,7 +101,7 @@ st.markdown(
     - [Albert Anguera](https://www.eawag.ch/en/about-us/portrait/organisation/staff/profile/albert-anguera-sempere/show/) 
     (Swiss Federal Institute of Aquatic Science & Technology)
     
-    ## Acknowledgments 
+    ### Acknowledgments 
     - Data to train our models was collected by members of Stockholm University including 
     [Zhe Li](https://www.su.se/english/profiles/zhli2569-1.189472), 
     [Yijing Li](https://www.su.se/english/profiles/yili6654-1.663685) 
