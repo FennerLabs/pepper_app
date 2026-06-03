@@ -1,0 +1,8 @@
+services:
+  pepper-app:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      # Persist generated structure images across container restarts
+      - ./pages/structures:/app/pages/structures

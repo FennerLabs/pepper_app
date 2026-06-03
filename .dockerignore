@@ -1,0 +1,9 @@
+.git
+.devcontainer
+.venv
+pepper_app_env
+__pycache__
+*.pyc
+*.pyo
+test_notebook.ipynb
+test_external_data/
