@@ -13,7 +13,7 @@ def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
     from pepper_lab.predict import Pepper, Predict
 
     input_smiles = input_data
-    pepper = Pepper(renku=True, pepper_data_location='/temp')
+    pepper = Pepper(pepper_data_location='/tmp')
     pepper_predict = Predict(pep=pepper)
     predictions_df = pepper_predict.predict_endpoint('final_model_WWTP.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
@@ -56,8 +56,8 @@ def predict_soil_DT50(input_data, model_type='Salz', input_smiles_type: str = 'd
     from pepper_lab.predict import Pepper, Predict
 
     input_smiles = input_data
-    pepper = Pepper(renku=True)
-    pepper_predict = Predict(pep=pepper, pepper_data_location='/temp')
+    pepper = Pepper(pepper_data_location='/tmp')
+    pepper_predict = Predict(pep=pepper)
     if model_type == 'fast':
         predictions_df = pepper_predict.predict_endpoint('final_model_soil_all_data_fast.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,

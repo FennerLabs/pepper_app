@@ -1,5 +1,5 @@
 pandas==2.2.3
 streamlit
 rdkit>=2024.9.5,<2025.0.0
-pepper-lab @ git+https://github.com/FennerLabs/pepper.git@f8a4772717f746f0318ba632ef9d83de962f10c0
+pepper-lab @ git+https://github.com/FennerLabs/pepper.git@fc1e10a292414da96824005a5e21791588921a0b
 scikit-learn==1.6.1

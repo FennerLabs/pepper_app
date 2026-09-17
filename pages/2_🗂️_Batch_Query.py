@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import time
 
-from pepper_lab import pepper
-
 
 def main():
 
@@ -60,7 +58,7 @@ def main():
 
             if model_selected_from_box == 'WWTP breakthrough':
                 from pepper_lab.predict import Pepper, Predict
-                pepper = Pepper(renku=True, pepper_data_location='/temp')
+                pepper = Pepper(pepper_data_location='/tmp')
                 pepper_predict = Predict(pep=pepper)
                 my_model = pepper_predict.load_joblib('final_model_WWTP.pkl')
                 print(my_model.data.columns)
