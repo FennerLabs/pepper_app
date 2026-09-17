@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import time
 
+from pepper_lab import pepper
+
+
 def main():
 
     # Streamlit app title
@@ -56,10 +59,12 @@ def main():
             time.sleep(3)
 
             if model_selected_from_box == 'WWTP breakthrough':
-                from pepper_lab.predict import Predict
-                pepper_predict = Predict(renku=True)
-                my_model = Predict.load_pickle('pepper_object_wwtp_optimized_trained_model.pkl')
-                model_data = my_model.data[['SMILES', 'logB']]
+                from pepper_lab.predict import Pepper, Predict
+                pepper = Pepper(renku=True)
+                pepper_predict = Predict(pep=pepper)
+                my_model = pepper_predict.load_joblib('final_model_RF.pkl')
+                model_data = my_model.data[['CanonicalSMILES', 'logB']].copy()
+                model_data.rename(columns={'CanonicalSMILES': 'SMILES'}, inplace=True)
                 model_data['Training Breakthrough (%)'] = round((10**model_data['logB'])*100,1)
                 model_data.drop(columns='logB', inplace=True)
                 # st.write("This is the model data", model_data)
