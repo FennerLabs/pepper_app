@@ -60,7 +60,7 @@ def main():
 
             if model_selected_from_box == 'WWTP breakthrough':
                 from pepper_lab.predict import Pepper, Predict
-                pepper = Pepper(renku=True)
+                pepper = Pepper(renku=True, pepper_data_location='')
                 pepper_predict = Predict(pep=pepper)
                 my_model = pepper_predict.load_joblib('final_model_WWTP.pkl')
                 print(my_model.data.columns)
