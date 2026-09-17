@@ -62,7 +62,7 @@ def main():
                 from pepper_lab.predict import Pepper, Predict
                 pepper = Pepper(renku=True)
                 pepper_predict = Predict(pep=pepper)
-                my_model = pepper_predict.load_joblib('final_model_RF.pkl')
+                my_model = pepper_predict.load_joblib('final_model_WWTP.pkl')
                 model_data = my_model.data[['CanonicalSMILES', 'logB']].copy()
                 model_data.rename(columns={'CanonicalSMILES': 'SMILES'}, inplace=True)
                 model_data['Training Breakthrough (%)'] = round((10**model_data['logB'])*100,1)
