@@ -56,7 +56,7 @@ def predict_soil_DT50(input_data, model_type='Salz', input_smiles_type: str = 'd
     from pepper_lab.predict import Pepper, Predict
 
     input_smiles = input_data
-    pepper = Pepper(pepper_data_location='/var/tmp')
+    pepper = Pepper(pepper_data_location='/tmp')
     pepper_predict = Predict(pep=pepper)
     if model_type == 'fast':
         predictions_df = pepper_predict.predict_endpoint('final_model_soil_all_data_fast.pkl',
