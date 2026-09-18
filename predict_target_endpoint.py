@@ -1,4 +1,3 @@
-# from narwhals import DataFrame
 from rdkit.Chem import PandasTools
 from utils import image_from_mol
 
@@ -14,6 +13,7 @@ def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
 
     input_smiles = input_data
     pepper = Pepper(pepper_data_location='/tmp')
+    print(pepper.get_data_directory())
     pepper_predict = Predict(pep=pepper)
     predictions_df = pepper_predict.predict_endpoint('final_model_WWTP.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
@@ -56,7 +56,7 @@ def predict_soil_DT50(input_data, model_type='Salz', input_smiles_type: str = 'd
     from pepper_lab.predict import Pepper, Predict
 
     input_smiles = input_data
-    pepper = Pepper(pepper_data_location='/tmp')
+    pepper = Pepper(pepper_data_location='/var/tmp')
     pepper_predict = Predict(pep=pepper)
     if model_type == 'fast':
         predictions_df = pepper_predict.predict_endpoint('final_model_soil_all_data_fast.pkl',
