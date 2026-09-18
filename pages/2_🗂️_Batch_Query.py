@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import time
 
+
 def main():
 
     # Streamlit app title
@@ -32,7 +33,7 @@ def main():
     @st.cache_data
     def convert_df(df):
         # IMPORTANT: Cache the conversion to prevent computation on every rerun
-        return df.to_csv().encode("utf-8")
+        return df.to_csv(index=False).encode("utf-8")
     example_csv = pd.read_csv('test_pepper_app.csv')
     csv = convert_df(example_csv)
 
@@ -56,10 +57,13 @@ def main():
             time.sleep(3)
 
             if model_selected_from_box == 'WWTP breakthrough':
-                from pepper_lab.predict import Predict
-                pepper_predict = Predict(renku=True)
-                my_model = Predict.load_pickle('pepper_object_wwtp_optimized_trained_model.pkl')
-                model_data = my_model.data[['SMILES', 'logB']]
+                from pepper_lab.predict import Pepper, Predict
+                pepper = Pepper(pepper_data_location='/tmp')
+                pepper_predict = Predict(pep=pepper)
+                my_model = pepper_predict.load_joblib('final_model_WWTP.pkl')
+                print(my_model.data.columns)
+                model_data = my_model.data[['CanonicalSMILES', 'logB']].copy()
+                model_data.rename(columns={'CanonicalSMILES': 'SMILES'}, inplace=True)
                 model_data['Training Breakthrough (%)'] = round((10**model_data['logB'])*100,1)
                 model_data.drop(columns='logB', inplace=True)
                 # st.write("This is the model data", model_data)

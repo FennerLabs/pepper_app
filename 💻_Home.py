@@ -88,7 +88,7 @@ st.markdown(
     ###### Soil half-lives
     Salz, M., Cordero Solano, J. A., Fenner, K. & Hafner, J. Confidently uncertain: 
     Probabilistic machine learning to predict soil biotransformation half-lives. 
-    Preprint at [https://doi.org/10.26434/chemrxiv-2025-xmslf](https://doi.org/10.26434/chemrxiv-2025-xmslf) (2025).
+    Environ. Sci. Technol. [https://doi.org/10.1021/acs.est.6c03516](https://doi.org/10.1021/acs.est.6c03516) (2026).
 
     
     ### Main contributors to PEPPER and PEPPER-app
@@ -102,7 +102,7 @@ st.markdown(
     (Swiss Federal Institute of Aquatic Science & Technology)
     
     ### Acknowledgments 
-    - Data to train our models was collected by members of Stockholm University including 
+    - Data to train the WWTP models was collected by members of Stockholm University including 
     [Zhe Li](https://www.su.se/english/profiles/zhli2569-1.189472), 
     [Yijing Li](https://www.su.se/english/profiles/yili6654-1.663685) 
     and [Malte Posselt](https://www.su.se/english/profiles/mapo9821-1.260962)

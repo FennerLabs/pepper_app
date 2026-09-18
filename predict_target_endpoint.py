@@ -1,4 +1,3 @@
-# from narwhals import DataFrame
 from rdkit.Chem import PandasTools
 from utils import image_from_mol
 
@@ -10,11 +9,13 @@ def render_structures(predictions_df):
 
 
 def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
-    from pepper_lab.predict import Predict
+    from pepper_lab.predict import Pepper, Predict
 
     input_smiles = input_data
-    pepper_predict = Predict(renku=True)
-    predictions_df = pepper_predict.predict_endpoint('pepper_object_wwtp_optimized_trained_model.pkl',
+    pepper = Pepper(pepper_data_location='/tmp')
+    print(pepper.get_data_directory())
+    pepper_predict = Predict(pep=pepper)
+    predictions_df = pepper_predict.predict_endpoint('final_model_WWTP.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
                                     input_smiles_type=input_smiles_type)
 
@@ -29,11 +30,10 @@ def predict_WWTP_breakthrough(input_data, input_smiles_type: str = 'dataframe'):
     confidence = predictions_df['{}_predicted'.format(pepper_predict.model.target_variable_std_name)]
     rounded_confidence = round(confidence, 2)
     predictions_df['Confidence 0-1'] = rounded_confidence
-
-    predictions_df = predictions_df[[pepper_predict.model.compound_name,
+    predictions_df = predictions_df[['SMILES',
                                      'Breakthrough (%)',
                                      'Confidence 0-1',
-                                     pepper_predict.model.smiles_name]]
+                                     'Name']]
 
     predictions_df = render_structures(predictions_df)
     return predictions_df
@@ -52,11 +52,12 @@ def get_confidence_level(standard_deviation_list):
     return new_list
 
 
-def predict_soil_DT50(input_data, model_type='fast', input_smiles_type: str = 'dataframe'):
-    from pepper_lab.predict import Predict
+def predict_soil_DT50(input_data, model_type='Salz', input_smiles_type: str = 'dataframe'):
+    from pepper_lab.predict import Pepper, Predict
 
     input_smiles = input_data
-    pepper_predict = Predict(renku=True)
+    pepper = Pepper(pepper_data_location='/tmp')
+    pepper_predict = Predict(pep=pepper)
     if model_type == 'fast':
         predictions_df = pepper_predict.predict_endpoint('final_model_soil_all_data_fast.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
@@ -67,7 +68,7 @@ def predict_soil_DT50(input_data, model_type='fast', input_smiles_type: str = 'd
                                     input_smiles_type=input_smiles_type)
         
     elif model_type == 'Salz':
-        predictions_df = pepper_predict.predict_endpoint('final_model_GPR.pkl',
+        predictions_df = pepper_predict.predict_endpoint('final_model_soil.pkl',
                                     input_model_format='pickle', input_smiles=input_smiles,
                                     input_smiles_type=input_smiles_type)
     else:
@@ -78,6 +79,8 @@ def predict_soil_DT50(input_data, model_type='fast', input_smiles_type: str = 'd
     predictions_df['logDT50_std_predicted'] = predictions_df['logDT50_std_predicted'].round(2)
     predictions_df['Predicted DT50 [days]'] = (10 ** predictions_df['logDT50_mean_predicted']).round(1)
     predictions_df['Confidence level'] = get_confidence_level(predictions_df['logDT50_std_predicted'])
+    for probability in ['p(nP)', 'p(P)', 'p(vP)']:
+        predictions_df[probability] = (predictions_df[probability]*100).round(2)
     if type(input_data) != str and 'Compound' in input_data.columns:
         predictions_df['compound_name'] = input_data['Compound']
     predictions_df.rename(columns={'original_SMILES': 'SMILES',
@@ -85,11 +88,16 @@ def predict_soil_DT50(input_data, model_type='fast', input_smiles_type: str = 'd
                                    'logDT50_std_predicted': 'Predicted uncertainty (stdev of logDT50)',
                                    'compound_name': 'Compound name',
                                    'logDT50_mean_experimental': 'experimental logDT50',
-                                   'logDT50_std_experimental': 'experimental variability (stdev of logDT50)'},
+                                   'logDT50_std_experimental': 'experimental variability (stdev of logDT50)',
+                                   'p(nP)': 'p(nP) [%]',
+                                   'p(P)': 'p(P) [%]',
+                                   'p(vP)': 'p(vP) [%]',
+                                   },
                           inplace = True)
     predictions_df = predictions_df[['Compound name', 'Predicted DT50 [days]','Confidence level',
                                      'Predicted logDT50 [log(days)]',
                                      'Predicted uncertainty (stdev of logDT50)', 'experimental logDT50',
-                                     'experimental variability (stdev of logDT50)', 'warnings', 'SMILES',]]
+                                     'experimental variability (stdev of logDT50)', 'warnings', 'SMILES',
+                                     'p(nP) [%]', 'p(P) [%]', 'p(vP) [%]']]
     predictions_df = render_structures(predictions_df)
     return predictions_df
